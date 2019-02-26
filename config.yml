@@ -1,7 +1,22 @@
-# iptables -A INPUT -j ACCEPT -s 22.22.22.22/32 -p tcp
 input:
   accept:
     - ip: 22.22.22.22/32
       protocol: tcp
     - ip: 33.33.33.33/32
+      protocol: tcp
+  drop:
+    - ip: 44.44.44.44/32
+      protocol: tcp
+    - ip: 55.55.55.55/32
+      protocol: tcp
+output:
+  accept:
+    - ip: 66.66.66.66/32
+      protocol: tcp
+    - ip: 77.77.77.77/32
+      protocol: tcp
+  drop:
+    - ip: 88.88.88.88/32
+      protocol: tcp
+    - ip: 99.99.99.99/32
       protocol: tcp

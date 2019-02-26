@@ -1,12 +1,21 @@
 import yaml
+import subprocess
 
 def start(file):
-  print('Thrim start...')
   f = open(file, "r+")
   data = yaml.load(f)
+  print('Thrim start...')
+  run_iptables(data, 'input', 'accept')
+  run_iptables(data, 'input', 'drop')
+  run_iptables(data, 'output', 'accept')
+  run_iptables(data, 'output', 'drop')
 
-  accept = data['input']['accept']
-  for i in range(len(accept)):
-    ip = (accept[i]['ip'])
-    protocol = (accept[i]['protocol'])
-    print('iptables -A INPUT -j ACCEPT -s ' + ip + ' -p ' + protocol)
+def run_iptables(data, chain, option):
+  option_configs = data[chain][option]
+
+  for i in range(len(option_configs)):
+    ip = (option_configs[i]['ip'])
+    protocol = (option_configs[i]['protocol'])
+    command = 'iptables -A ' + chain.upper() + ' -j '+ str(option).upper() + ' -s ' + ip + ' -p ' + protocol
+    print(command)
+    subprocess.run(command)
