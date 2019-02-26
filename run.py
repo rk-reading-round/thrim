@@ -16,6 +16,6 @@ def run_iptables(data, chain, option):
   for i in range(len(option_configs)):
     ip = (option_configs[i]['ip'])
     protocol = (option_configs[i]['protocol'])
-    command = 'iptables -A ' + chain.upper() + ' -j '+ str(option).upper() + ' -s ' + ip + ' -p ' + protocol
-    print(command)
+    command = ['iptables', '-A', chain.upper(), '-j', str(option).upper(), '-s', ip, '-p', protocol]
+    print('iptables -A ' + chain.upper() + ' -j '+ str(option).upper() + ' -s ' + ip + ' -p ' + protocol)
     subprocess.run(command)
