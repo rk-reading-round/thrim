@@ -10,4 +10,7 @@ setup(
       "thrim = thrim:main",
     ],
   },
+  scripts=[
+    'debug',
+  ],
 )
