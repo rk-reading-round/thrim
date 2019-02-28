@@ -1,0 +1,4 @@
+a:
+  debug:
+    - site: www.google.com
+      port: 53
