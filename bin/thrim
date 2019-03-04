@@ -1,13 +1,24 @@
 #!/usr/bin/env python
 
 import fire
-from lib import run
+from lib.cli import base
+from lib.cli import thrim_cli
+from lib.cli import nslookup_cli
 
 class Thrim(object):
+  def __init__(self):
+    self.dev = Dev()
+
   def hello(self):
     return 'Hello, Thrim!'
   def run(self, f='config.yml'):
-    run.start(f)
+    thrim = thrim_cli.thrimCli(f)
+    thrim.start()
+
+class Dev(object):
+  def run(self, f='dev_config.yml'):
+    nslookup = nslookup_cli.nslookupCli(f)
+    nslookup.start()
 
 def main():
   fire.Fire(Thrim)
