@@ -1,15 +1,17 @@
 # thrim
 
-## 動作確認方法
+## Installation
 
-### 共通
+1. `$ pipenv shell`
 
-`$ pip install -e .`
+1. `$ pip install -e .`
 
-### thrimコマンド
+## Usage
+
+### for linux server
 
 `$ thrim run`
 
-### debugコマンド(Mac用)
+### for mac (for developer)
 
-`$ debug run`
+`$ thrim dev run`
