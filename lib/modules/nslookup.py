@@ -1,3 +1,5 @@
+import subprocess
+
 def dryrun_nslookup(data, type, option):
   option_configs = data[type][option]
 

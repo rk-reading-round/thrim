@@ -1,3 +1,5 @@
+import subprocess
+
 def dryrun_iptables(data, chain, option):
   option_configs = data[chain][option]
 
