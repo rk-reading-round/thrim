@@ -1,5 +1,7 @@
+#!/usr/bin/env python
+
 import fire
-import run
+from lib import run
 
 class Thrim(object):
   def hello(self):
