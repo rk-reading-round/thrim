@@ -1,12 +1,14 @@
+import platform
 from lib.cli.base import Cli
-
 from lib.modules import iptables
 
 class thrimCli(Cli):
   def start(self):
     self.dryrun_thrim(self.data)
     self.require_confirmation()
-    self.realrun_thrim(self.data)
+
+    if platform.system() == "Linux":
+      self.realrun_thrim(self.data)
 
   def dryrun_thrim(self, data):
     print('Thrim Dryrun...')

@@ -5,8 +5,9 @@ setup(
   version="0.0.1",
   description="thrim package",
   packages=setuptools.find_packages(),
-  scripts=[
-    'bin/thrim',
-    'bin/debug',
-  ],
+  entry_points={
+    "console_scripts": [
+      "thrim = bin.thrim:main",
+    ],
+  },
 )

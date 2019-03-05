@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "e022bf09747a1ae89459e36a1ece0a9132acbd5170052634dc960cb253962ded"
+            "sha256": "befac5e342ac2a8240c917eed5eea834899545ec1a34bb9352b063df6e177469"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -46,6 +46,10 @@
                 "sha256:d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"
             ],
             "version": "==1.12.0"
+        },
+        "thrim": {
+            "editable": true,
+            "path": "."
         }
     },
     "develop": {}

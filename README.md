@@ -1,17 +1,17 @@
 # thrim
 
+## Requirement
+
+- Python3.6
+
+- pipenv
+
 ## Installation
 
 1. `$ pipenv shell`
 
-1. `$ pip install -e .`
+1. `$ pipenv install -e .`
 
 ## Usage
 
-### for linux server
-
 `$ thrim run`
-
-### for mac (for developer)
-
-`$ thrim dev run`
