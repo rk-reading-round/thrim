@@ -1,5 +1,4 @@
 import fire
-from lib.cli import base
 from lib.cli import thrim_cli
 
 class Thrim(object):

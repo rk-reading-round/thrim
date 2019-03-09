@@ -7,8 +7,10 @@ class thrimCli(Cli):
     self.dryrun_thrim(self.data)
     self.require_confirmation()
 
-    if platform.system() == "Linux":
+    try:
       self.realrun_thrim(self.data)
+    except FileNotFoundError:
+      print('[Error] command iptables not found')
 
   def dryrun_thrim(self, data):
     print('Thrim Dryrun...')
