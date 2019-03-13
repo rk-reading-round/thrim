@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 fire = "*"
 pyyaml = "*"
+python-iptables = "*"
 thrim = {editable = true,path = "."}
 
 [requires]
