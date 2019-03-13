@@ -7,5 +7,8 @@ class Thrim(object):
   def run(self, f='config.yml'):
     run.start(f)
 
+def main():
+  fire.Fire(Thrim)
+
 if __name__ == '__main__':
   fire.Fire(Thrim)

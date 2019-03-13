@@ -27,11 +27,14 @@ def dryrun_thrim(data):
 
 def realrun_thrim(data):
   print('Thrim start...')
-  run_iptables(data, 'input', 'accept')
-  run_iptables(data, 'input', 'drop')
-  run_iptables(data, 'output', 'accept')
-  run_iptables(data, 'output', 'drop')
-  print('Thrim complete.')
+  try:
+    run_iptables(data, 'input', 'accept')
+    run_iptables(data, 'input', 'drop')
+    run_iptables(data, 'output', 'accept')
+    run_iptables(data, 'output', 'drop')
+    print('Thrim complete.')
+  except FileNotFoundError:
+    print('[Error] command iptables not found')
 
 def dryrun_iptables(data, chain, option):
   option_configs = data[chain][option]
