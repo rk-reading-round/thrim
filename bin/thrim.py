@@ -1,13 +1,11 @@
 import fire
-from lib.cli import thrim_cli
+import run
 
 class Thrim(object):
   def hello(self):
     return 'Hello, Thrim!'
-
   def run(self, f='config.yml'):
-    thrim = thrim_cli.thrimCli(f)
-    thrim.start()
+    run.start(f)
 
 def main():
   fire.Fire(Thrim)
