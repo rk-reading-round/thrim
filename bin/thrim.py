@@ -1,10 +1,10 @@
 import fire
+import run
 
 class Thrim(object):
   def hello(self):
     return 'Hello, Thrim!'
   def run(self, f='config.yml'):
-    import run
     run.start(f)
 
 def main():
