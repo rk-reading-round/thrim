@@ -1,5 +1,5 @@
 import yaml
-import subprocess
+import iptc
 import sys
 
 def start(file):
@@ -36,20 +36,25 @@ def realrun_thrim(data):
   except FileNotFoundError:
     print('[Error] command iptables not found')
 
-def dryrun_iptables(data, chain, option):
-  option_configs = data[chain][option]
+def dryrun_iptables(data, command, option):
+  option_configs = data[command][option]
 
   for i in range(len(option_configs)):
     ip = option_configs[i]['ip']
     protocol = option_configs[i]['protocol']
-    print('[Dryrun] iptables -A ' + chain.upper() + ' -j '+ str(option).upper() + ' -s ' + ip + ' -p ' + protocol)
+    print('[Dryrun] iptables -A ' + command.upper() + ' -j '+ str(option).upper() + ' -s ' + ip + ' -p ' + protocol)
 
-def run_iptables(data, chain, option):
-  option_configs = data[chain][option]
+def run_iptables(data, command, option):
+  option_configs = data[command][option]
 
   for i in range(len(option_configs)):
     ip = option_configs[i]['ip']
     protocol = option_configs[i]['protocol']
-    command = ['iptables', '-A', chain.upper(), '-j', str(option).upper(), '-s', ip, '-p', protocol]
-    print('[Running] iptables -A ' + chain.upper() + ' -j '+ str(option).upper() + ' -s ' + ip + ' -p ' + protocol)
-    subprocess.run(command)
+    print('[Running] iptables -A ' + command.upper() + ' -j '+ str(option).upper() + ' -s ' + ip + ' -p ' + protocol)
+
+    rule = iptc.Rule()
+    rule.src = ip
+    rule.protocol = protocol
+    rule.create_target(str(option).upper())
+    chain = iptc.Chain(iptc.Table('filter'), command.upper())
+    chain.insert_rule(rule)
