@@ -19,7 +19,7 @@ def make_config(input_chain, output_chain):
 def format_address(address):
   if isinstance(address, (str, ipaddress.IPv4Address)):
     try:
-      address = ipaddress.ip_network(address)
+     address = ipaddress.ip_network(address)
     except ValueError:
       raise
   elif isinstance(address, ipaddress.IPv4Network):
@@ -30,17 +30,14 @@ def format_address(address):
 
 def read_config(input_chain, output_chain):
   text = "{'input': {"
-  for rule in input_chain.rules:
-    text += "'"
-    text += rule.target.name.lower()
-    text += "': [{'ip': '"
-    text += format_address(rule.src)
-    text += "', 'protocol': '"
-    text += rule.protocol
-    text += "'}], "
-  text = text.rstrip(', ')
+  text = add_chain_rules(text, input_chain)
   text += "}, 'output': {"
-  for rule in output_chain.rules:
+  text = add_chain_rules(text, output_chain)
+  text += "}}"
+  return text
+
+def add_chain_rules(text, chain):
+  for rule in chain.rules:
     text += "'"
     text += rule.target.name.lower()
     text += "': [{'ip': '"
@@ -49,5 +46,4 @@ def read_config(input_chain, output_chain):
     text += rule.protocol
     text += "'}], "
   text = text.rstrip(', ')
-  text += "}}"
   return text
