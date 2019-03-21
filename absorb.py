@@ -46,9 +46,14 @@ def read_config(input_chain, output_chain):
   input_text = ""
   input_text += "{'input': {"
   for rule in input_chain.rules:
-    input_text += "\'"
-    input_text += rule.target.name
-    input_text += "\': '', "
+    input_text += "'"
+    input_text += rule.target.name.lower()
+    input_text += "': "
+    input_text += "[{'ip': '"
+    input_text += format_address(rule.src)
+    input_text += "'}, {'protocol': '"
+    input_text += rule.protocol
+    input_text += "'}], "
   input_text += "}}"
   print(input_text)
   return input_text
