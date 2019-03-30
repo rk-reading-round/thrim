@@ -37,15 +37,20 @@ def realrun_thrim(data):
     print('[Error] command iptables not found')
 
 def dryrun_iptables(data, command, option):
-  option_configs = data[command][option]
-
+  try:
+    option_configs = data[command][option]
+  except KeyError:
+    return
   for i in range(len(option_configs)):
     ip = option_configs[i]['ip']
     protocol = option_configs[i]['protocol']
     print('[Dryrun] iptables -A ' + command.upper() + ' -j '+ str(option).upper() + ' -s ' + ip + ' -p ' + protocol)
 
 def run_iptables(data, command, option):
-  option_configs = data[command][option]
+  try:
+    option_configs = data[command][option]
+  except KeyError:
+    return
 
   for i in range(len(option_configs)):
     ip = option_configs[i]['ip']
