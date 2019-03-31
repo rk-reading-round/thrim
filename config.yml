@@ -1,22 +1,24 @@
 input:
   accept:
-    - ip: 22.22.22.22/32
+    - src: 22.22.22.22/32
       protocol: tcp
-    - ip: 33.33.33.33/32
+      in_interface: eth0
+    - src: 33.33.33.33/32
       protocol: tcp
+      dport: 53
   drop:
-    - ip: 44.44.44.44/32
+    - src: 44.44.44.44/32
       protocol: tcp
-    - ip: 55.55.55.55/32
+    - src: 55.55.55.55/32
       protocol: tcp
 output:
   accept:
-    - ip: 66.66.66.66/32
+    - src: 66.66.66.66/32
       protocol: tcp
-    - ip: 77.77.77.77/32
+    - src: 77.77.77.77/32
       protocol: tcp
   drop:
-    - ip: 88.88.88.88/32
+    - src: 88.88.88.88/32
       protocol: tcp
-    - ip: 99.99.99.99/32
+    - src: 99.99.99.99/32
       protocol: tcp
