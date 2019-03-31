@@ -12,6 +12,8 @@ def start():
 
 def make_config(input_chain, output_chain):
   text = read_config(input_chain, output_chain)
+  print(text)
+
   with open("absorbed_config.yml", "w") as ac:
     yaml.dump(ast.literal_eval(text), ac, default_flow_style=False)
 
@@ -37,13 +39,24 @@ def read_config(input_chain, output_chain):
   return text
 
 def add_chain_rules(text, chain):
+  if not chain.rules:
+    return text
+
+  checked_target = []
   for rule in chain.rules:
-    text += "'"
-    text += rule.target.name.lower()
-    text += "': [{'ip': '"
+    target_name = rule.target.name.lower()
+    if target_name not in checked_target:
+      text += "'"
+      text += target_name
+      checked_target.append(target_name)
+      text += "': [{'ip': '"
+    else:
+      text += "{'ip': '"
+
     text += format_address(rule.src)
     text += "', 'protocol': '"
     text += rule.protocol
-    text += "'}], "
+    text += "'}, "
   text = text.rstrip(', ')
+  text += "]"
   return text
