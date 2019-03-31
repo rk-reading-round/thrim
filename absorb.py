@@ -39,19 +39,26 @@ def read_config(input_chain, output_chain):
   return text
 
 def add_chain_rules(text, chain):
+  # null check
   if not chain.rules:
     return text
 
-  checked_target = []
+  previous_target = ''
   for rule in chain.rules:
     target_name = rule.target.name.lower()
-    if target_name not in checked_target:
+    if previous_target == '':
+      pass
+    elif target_name != previous_target:
+      text = text.rstrip(', ')
+      text += "], "
+
+    if target_name == previous_target:
+      text += "{'ip': '"
+    else:
       text += "'"
       text += target_name
-      checked_target.append(target_name)
       text += "': [{'ip': '"
-    else:
-      text += "{'ip': '"
+    previous_target = target_name
 
     text += format_address(rule.src)
     text += "', 'protocol': '"
