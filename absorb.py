@@ -12,8 +12,6 @@ def start():
 
 def make_config(input_chain, output_chain):
   text = read_config(input_chain, output_chain)
-  print(text)
-
   with open("absorbed_config.yml", "w") as ac:
     yaml.dump(ast.literal_eval(text), ac, default_flow_style=False)
 
