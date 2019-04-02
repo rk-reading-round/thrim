@@ -5,7 +5,6 @@ import ast
 def yaml_sort(yaml_file):
   f = open(yaml_file, "r+")
   data = yaml.load(f)
-  print(data)
 
   input_accept_list = data['input']['accept']
   input_accept_list.sort(key=lambda x: x['ip'])

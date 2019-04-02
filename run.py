@@ -1,13 +1,26 @@
 import yaml
 import iptc
 import sys
+import os.path
+
+import absorb
+from util import yaml_util
 
 def start(file):
+  validate_config_file(file)
+
   f = open(file, "r+")
   data = yaml.load(f)
   dryrun_thrim(data)
   require_confirmation()
   realrun_thrim(data)
+
+def validate_config_file(config_file):
+  if not os.path.exists('.state.yml'):
+    absorb.start()
+  print('Validate Config...')
+  yaml_util.yaml_sort(config_file)
+  yaml_util.yaml_sort('.state.yml')
 
 def require_confirmation():
   while True:

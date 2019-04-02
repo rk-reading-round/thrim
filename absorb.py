@@ -4,15 +4,15 @@ import yaml
 import ast
 
 def start():
-  print('Import iptables Settings...')
+  print('Absorb iptables Settings...')
   input_chain = iptc.Chain(iptc.Table(iptc.Table.FILTER), 'INPUT')
   output_chain = iptc.Chain(iptc.Table(iptc.Table.FILTER), 'OUTPUT')
   make_config(input_chain, output_chain)
-  print('Import success!!\n$ cat absorbed_config.yml')
+  print('Absorb success!!')
 
 def make_config(input_chain, output_chain):
   text = read_config(input_chain, output_chain)
-  with open("absorbed_config.yml", "w") as ac:
+  with open(".state.yml", "w") as ac:
     yaml.dump(ast.literal_eval(text), ac, default_flow_style=False)
 
 # format IP address to prefix
