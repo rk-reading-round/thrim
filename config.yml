@@ -9,16 +9,22 @@ input:
   drop:
     - src: 44.44.44.44/32
       protocol: tcp
+      in_interface: eth0
+      dport: 53
     - src: 55.55.55.55/32
       protocol: tcp
 output:
   accept:
     - src: 66.66.66.66/32
       protocol: tcp
+      out_interface: eth0
     - src: 77.77.77.77/32
       protocol: tcp
+      sport: 53
   drop:
     - src: 88.88.88.88/32
       protocol: tcp
+      out_interface: eth0
+      sport: 53
     - src: 99.99.99.99/32
       protocol: tcp
