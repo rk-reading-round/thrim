@@ -20,54 +20,41 @@ def require_confirmation():
 
 def dryrun_thrim(data):
   print('Thrim Dryrun...')
-  opt_pattern = {}
-  for i in data:
-    opt_pattern[i] = list(data[i].keys())
-
-  for i in opt_pattern:
-    chain = i
-    for j in range(len(opt_pattern[i])):
-      target = opt_pattern[i][j]
-      dryrun_iptables(data, chain, target)
+  dryrun_iptables(data, 'input', 'accept')
+  dryrun_iptables(data, 'input', 'drop')
+  dryrun_iptables(data, 'output', 'accept')
+  dryrun_iptables(data, 'output', 'drop')
 
 def realrun_thrim(data):
   print('Thrim start...')
-  opt_pattern = {}
-  for i in data:
-    opt_pattern[i] = list(data[i].keys())
+  try:
+    run_iptables(data, 'input', 'accept')
+    run_iptables(data, 'input', 'drop')
+    run_iptables(data, 'output', 'accept')
+    run_iptables(data, 'output', 'drop')
+    print('Thrim complete.')
+  except FileNotFoundError:
+    print('[Error] command iptables not found')
 
-  for i in opt_pattern:
-    chain = i
-    for j in range(len(opt_pattern[i])):
-      target = opt_pattern[i][j]
-      try:
-        run_iptables(data, chain, target)
-      except FileNotFoundError:
-        print('[Error] command iptables not found')
+def dryrun_iptables(data, command, option):
+  option_configs = data[command][option]
 
-def dryrun_iptables(data, chain, target):
-  rules = data[chain][target]
-  for i in rules:
-    command = create_command(i, chain, target)
-    print(' '.join(map(str, command)))
+  for i in range(len(option_configs)):
+    ip = option_configs[i]['ip']
+    protocol = option_configs[i]['protocol']
+    print('[Dryrun] iptables -A ' + command.upper() + ' -j '+ str(option).upper() + ' -s ' + ip + ' -p ' + protocol)
 
-def run_iptables(data, chain, target):
-  rules = data[chain][target]
-  for i in rules:
-    command = create_command(i, chain, target)
-    print(' '.join(map(str, command)))
+def run_iptables(data, command, option):
+  option_configs = data[command][option]
+
+  for i in range(len(option_configs)):
+    ip = option_configs[i]['ip']
+    protocol = option_configs[i]['protocol']
+    print('[Running] iptables -A ' + command.upper() + ' -j '+ str(option).upper() + ' -s ' + ip + ' -p ' + protocol)
 
     rule = iptc.Rule()
-    for j in i:
-      setattr(rule, j, i[j])
-    rule.create_target(str(target).upper())
-    table_chain = iptc.Chain(iptc.Table('filter'), chain.upper())
-    table_chain.insert_rule(rule)
-
-def create_command(rule, chain, target):
-  opt_dict = {'src': '-s', 'protocol': '-p', 'in_interface': '-i', 'dport': '--dport'}
-  command = ['iptables -A', chain.upper(), '-j', target.upper()]
-  for i in rule:
-    command.append(opt_dict[i])
-    command.append(rule[i])
-  return command
+    rule.src = ip
+    rule.protocol = protocol
+    rule.create_target(str(option).upper())
+    chain = iptc.Chain(iptc.Table('filter'), command.upper())
+    chain.insert_rule(rule)
