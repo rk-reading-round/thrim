@@ -27,10 +27,10 @@ def yaml_diff(yaml_file1, yaml_file2):
   diff_input_drop = data2_minus_data1(data1, data2, 'input', 'drop')
   diff_output_accept = data2_minus_data1(data1, data2, 'output', 'accept')
   diff_output_drop = data2_minus_data1(data1, data2, 'output', 'drop')
+  print(diff_output_accept)
+  return diff_input_accept, diff_input_drop, diff_output_accept, diff_output_accept
 
 def data2_minus_data1(data1, data2, command, option):
   data1_list = [v.get('ip') for v in data1[command][option]]
   data2_list = [v.get('ip') for v in data2[command][option]]
   return list(set(data2_list) - set(data1_list))
-
-yaml_diff('config.yml', '.state.yml')
