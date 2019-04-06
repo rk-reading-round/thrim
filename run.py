@@ -47,22 +47,14 @@ def realrun_thrim(data):
 
 def dryrun_iptables(data, chain, target):
   rules = data[chain][target]
-  opt_dict = {'src': '-s', 'protocol': '-p', 'in_interface': '-i', 'dport': '--dport'}
   for i in rules:
-    command = ['iptables -A', chain.upper(), '-j', target.upper()]
-    for j in i:
-      command.append(opt_dict[j])
-      command.append(i[j])
+    command = create_command(i, chain, target)
     print(' '.join(map(str, command)))
 
 def run_iptables(data, chain, target):
   rules = data[chain][target]
-  opt_dict = {'src': '-s', 'protocol': '-p', 'in_interface': '-i', 'dport': '--dport'}
   for i in rules:
-    command = ['iptables -A', chain.upper(), '-j', target.upper()]
-    for j in i:
-      command.append(opt_dict[j])
-      command.append(i[j])
+    command = create_command(i, chain, target)
     print(' '.join(map(str, command)))
 
     rule = iptc.Rule()
@@ -71,3 +63,11 @@ def run_iptables(data, chain, target):
     rule.create_target(str(target).upper())
     table_chain = iptc.Chain(iptc.Table('filter'), chain.upper())
     table_chain.insert_rule(rule)
+
+def create_command(rule, chain, target):
+  opt_dict = {'src': '-s', 'protocol': '-p', 'in_interface': '-i', 'dport': '--dport'}
+  command = ['iptables -A', chain.upper(), '-j', target.upper()]
+  for i in rule:
+    command.append(opt_dict[i])
+    command.append(rule[i])
+  return command
