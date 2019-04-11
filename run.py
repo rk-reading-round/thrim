@@ -76,7 +76,8 @@ def create_command(rule, chain, target):
   return command
 
 '''
-opt_pattern is a dictionary of chain and target parsed from the configuration file.
+create_opt_pattern generates a dictionary which represents chain and target parsed from configuration file.
+when this is called, it return generated dictionary.
 example: {'input': ['accept', 'drop'], 'output': ['accept', 'drop']}
 '''
 def create_opt_pattern(data):
