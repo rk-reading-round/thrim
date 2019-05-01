@@ -1,9 +1,6 @@
 import fire
 import run
 import absorb
-import sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from test import test_require_confirmation
 
 class Thrim(object):
   def hello(self):
@@ -12,8 +9,6 @@ class Thrim(object):
     run.start(f)
   def absorb(self):
     absorb.start()
-  def test(self):
-    test_require_confirmation()
 
 def main():
   fire.Fire(Thrim)
