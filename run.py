@@ -75,12 +75,25 @@ def create_command(rule, chain, target):
     command.append(rule[i])
   return command
 
-'''
-create_opt_pattern generates a dictionary which represents chain and target parsed from configuration file.
-when this is called, it return generated dictionary.
-example: {'input': ['accept', 'drop'], 'output': ['accept', 'drop']}
-'''
 def create_opt_pattern(data):
+  """
+  create_opt_pattern generates a dictionary which represents chain and target parsed from configuration file.
+  when this is called, it returns generated dictionary.
+  
+  params
+  ------
+  data : dict
+    e.g.  {
+            'input':
+              ['accept', 'drop'],
+            'output':
+              ['accept', 'drop']
+          }
+
+  returns
+  -------
+  opt_pattern : dict
+  """
   opt_pattern = {}
   for i in data:
     opt_pattern[i] = list(data[i].keys())
