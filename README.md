@@ -32,4 +32,4 @@ When this command is executed, the following test is performed.
 
 - test_run_iptables
 
-	Test whether `thrim run` was successfully execute.
+	Test whether `thrim run` was successfully executed.
