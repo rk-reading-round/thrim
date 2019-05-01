@@ -12,7 +12,7 @@ class TestDryrunIptalbles(unittest.TestCase):
   def tearDown(self):
     sys.stdout = sys.__stdout__
 
-  def test_command(self):
+  def test_dryrun(self):
     """sample data
     """
     data = {
