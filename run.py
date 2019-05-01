@@ -20,9 +20,8 @@ def require_confirmation():
 
 def dryrun_thrim(data):
   print('Thrim Dryrun...')
-  opt_pattern = {}
-  for i in data:
-    opt_pattern[i] = list(data[i].keys())
+
+  opt_pattern = create_opt_pattern(data)
 
   for i in opt_pattern:
     chain = i
@@ -32,9 +31,7 @@ def dryrun_thrim(data):
 
 def realrun_thrim(data):
   print('Thrim start...')
-  opt_pattern = {}
-  for i in data:
-    opt_pattern[i] = list(data[i].keys())
+  opt_pattern = create_opt_pattern(data)
 
   for i in opt_pattern:
     chain = i
@@ -77,3 +74,27 @@ def create_command(rule, chain, target):
     command.append(opt_dict[i])
     command.append(rule[i])
   return command
+
+def create_opt_pattern(data):
+  """
+  create_opt_pattern generates a dictionary which represents chain and target parsed from configuration file.
+  when this is called, it returns generated dictionary.
+  
+  params
+  ------
+  data : dict
+    e.g.  {
+            'input':
+              ['accept', 'drop'],
+            'output':
+              ['accept', 'drop']
+          }
+
+  returns
+  -------
+  opt_pattern : dict
+  """
+  opt_pattern = {}
+  for i in data:
+    opt_pattern[i] = list(data[i].keys())
+  return opt_pattern
